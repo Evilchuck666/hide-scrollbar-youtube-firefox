@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Hide-Scrollbar-YouTube",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Hides the scrollbar when viewing videos on YouTube",
   "icons": {
     "48": "icons/sb.png",

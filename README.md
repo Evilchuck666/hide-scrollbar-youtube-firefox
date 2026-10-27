@@ -1,5 +1,12 @@
 # 🙈 Hide-Scrollbar-YouTube
 
+![Platform](https://img.shields.io/badge/platform-Firefox%20%7C%20Firefox%20for%20Android-blue)
+![Firefox](https://img.shields.io/badge/Firefox-%3E%3D140-blue)
+![Firefox for Android](https://img.shields.io/badge/Firefox%20for%20Android-%3E%3D142-blue)
+[![License](https://img.shields.io/badge/license-GPLv3-blue)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/Evilchuck666/hide-scrollbar-youtube-firefox?label=download&sort=semver)](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/releases/latest)
+[![Build and tests](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/actions/workflows/release.yml)
+
 **Watch YouTube without a scrollbar in the way.**
 
 Hide-Scrollbar-YouTube is a tiny Firefox add-on that hides the page scrollbar
@@ -63,7 +70,7 @@ You can also load it by hand from `about:debugging` → **This Firefox** →
 
 ## 📦 Releases
 
-Releases are built by the [`Build extension`](.github/workflows/build.yml)
+Releases are built by the [`Build extension`](.github/workflows/release.yml)
 workflow. Every push and pull request lints the add-on and builds an unsigned
 package. To publish a release:
 
@@ -72,7 +79,7 @@ package. To publish a release:
    (only needed once).
 2. Bump `version` in `src/manifest.json` and push it to `main`.
 3. Go to **Actions → Build extension → Run workflow**, choose `main` and enter
-   the same version (e.g. `1.1.0`, without the `v`).
+   the same version (e.g. `1.2.0`, without the `v`).
 
 The workflow signs the add-on on addons.mozilla.org as an unlisted add-on,
 creates the `v<version>` tag and publishes a GitHub release with
@@ -80,4 +87,4 @@ creates the `v<version>` tag and publishes a GitHub release with
 
 ## 📜 License
 
-Released into the public domain under [The Unlicense](LICENSE).
+Licensed under the [GNU General Public License v3.0](LICENSE).
