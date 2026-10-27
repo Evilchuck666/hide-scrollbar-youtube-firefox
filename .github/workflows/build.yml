@@ -1,0 +1,146 @@
+name: Build extension
+
+# Pushes and pull requests lint the extension and build an unsigned package.
+# "Run workflow" on main with a version (e.g. 1.1.0, matching src/manifest.json)
+# also signs it on addons.mozilla.org as an unlisted add-on and publishes a
+# GitHub release with the signed .xpi. Signing needs two repository secrets
+# (Settings → Secrets and variables → Actions) holding your AMO API keys from
+# https://addons.mozilla.org/developers/addon/api/key/ :
+#   AMO_JWT_ISSUER  →  JWT issuer
+#   AMO_JWT_SECRET  →  JWT secret
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - '.github/workflows/build.yml'
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release, without the v (e.g. 1.1.0). Leave empty to only build.'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: ${{ github.event_name != 'workflow_dispatch' }}
+
+env:
+  WEB_EXT: web-ext@10.7.0
+  PACKAGE: hide-scrollbar-youtube.xpi
+
+jobs:
+  build:
+    name: Lint and build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Lint
+        run: npx --yes "$WEB_EXT" lint --source-dir src
+
+      - name: Build unsigned package
+        run: |
+          set -euo pipefail
+          npx --yes "$WEB_EXT" build --source-dir src --artifacts-dir dist \
+            --filename "unsigned-$PACKAGE" --overwrite-dest
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: hide-scrollbar-youtube-unsigned
+          path: dist/unsigned-${{ env.PACKAGE }}
+          if-no-files-found: error
+
+  release:
+    name: Sign and publish release
+    needs: build
+    if: github.event_name == 'workflow_dispatch' && inputs.version != '' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    concurrency:
+      group: hide-scrollbar-youtube-release
+      cancel-in-progress: false
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      VERSION: ${{ inputs.version }}
+      RELEASE_SHA: ${{ github.sha }}
+      WEB_EXT_API_KEY: ${{ secrets.AMO_JWT_ISSUER }}
+      WEB_EXT_API_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Validate version, tag and secrets
+        run: |
+          set -euo pipefail
+
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Use a version like 1.1.0, without the v."
+            exit 1
+          fi
+
+          manifest_version=$(jq -r .version src/manifest.json)
+          if [[ "$manifest_version" != "$VERSION" ]]; then
+            echo "::error::src/manifest.json says $manifest_version. Bump it to $VERSION first."
+            exit 1
+          fi
+
+          # An API failure must stop the release, so no "|| true" here.
+          gh api --paginate "repos/$GH_REPO/git/matching-refs/tags/" --jq '.[].ref' > tags.txt
+          if grep -Fxq "refs/tags/v$VERSION" tags.txt; then
+            echo "::error::Tag v$VERSION already exists. Use another version."
+            exit 1
+          fi
+
+          if [[ -z "$WEB_EXT_API_KEY" || -z "$WEB_EXT_API_SECRET" ]]; then
+            echo "::error::Set the AMO_JWT_ISSUER and AMO_JWT_SECRET repository secrets to sign the add-on."
+            exit 1
+          fi
+
+      - name: Sign on addons.mozilla.org (unlisted)
+        run: |
+          set -euo pipefail
+          npx --yes "$WEB_EXT" sign --source-dir src --artifacts-dir signed \
+            --channel unlisted --approval-timeout 1500000
+
+      - name: Check package and generate checksums
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          signed=(signed/*.xpi)
+          if (( ${#signed[@]} != 1 )); then
+            echo "::error::Expected one signed .xpi, found ${#signed[@]}."
+            exit 1
+          fi
+          mkdir release-assets
+          mv "${signed[0]}" "release-assets/$PACKAGE"
+          if [[ ! -s "release-assets/$PACKAGE" ]]; then
+            echo "::error::Package $PACKAGE is empty."
+            exit 1
+          fi
+          cd release-assets
+          sha256sum "$PACKAGE" > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: Create tag and publish release
+        working-directory: release-assets
+        run: |
+          set -euo pipefail
+          gh release create "v$VERSION" "$PACKAGE" SHA256SUMS.txt \
+            --target "$RELEASE_SHA" \
+            --title "Hide-Scrollbar-YouTube v$VERSION" \
+            --generate-notes \
+            --latest

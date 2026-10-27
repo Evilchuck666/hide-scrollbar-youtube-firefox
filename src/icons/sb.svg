@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="10000"
+   height="10000"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="stop.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8">
+    <rect
+       x="3005.0676"
+       y="4251.0713"
+       width="195.45155"
+       height="1465.8867"
+       id="rect16538" />
+    <rect
+       x="1966.7313"
+       y="3786.8739"
+       width="1392.5923"
+       height="1746.8483"
+       id="rect3192" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     width="10000px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.040930859"
+     inkscape:cx="3860.1682"
+     inkscape:cy="2015.5942"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none"
+     x="1464.842"
+     y="7635.0923"
+     id="text5332"><tspan
+       sodipodi:role="line"
+       id="tspan5330"
+       x="1464.842"
+       y="7635.0923"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6666.67px;font-family:Impact;-inkscape-font-specification:'Impact, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000">SB</tspan></text>
+  <path
+     fill="#ffffff"
+     stroke-width="745.053"
+     stroke="#bb0000"
+     d="m 1719.0067,1739.1433 a -4631.4107,4631.4107 0 1 0 20.1366,-20.1366 z m 0,0 6564.5212,6524.2481"
+     id="path2"
+     style="fill:none;stroke:#ff0000;stroke-opacity:1" />
+</svg>

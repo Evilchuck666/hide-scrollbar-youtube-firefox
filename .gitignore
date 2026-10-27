@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# web-ext
+dist/
+web-ext-artifacts/
