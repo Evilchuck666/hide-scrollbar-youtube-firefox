@@ -1,5 +1,10 @@
 # 🙈 Hide-Scrollbar-YouTube
 
+![Firefox](https://img.shields.io/badge/Firefox-%3E%3D140-blue)
+[![License](https://img.shields.io/badge/license-Unlicense-green)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/Evilchuck666/hide-scrollbar-youtube-firefox?label=download&sort=semver)](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/releases/latest)
+[![Build and tests](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/actions/workflows/build.yml)
+
 **Watch YouTube without a scrollbar in the way.**
 
 Hide-Scrollbar-YouTube is a tiny Firefox add-on that hides the page scrollbar
