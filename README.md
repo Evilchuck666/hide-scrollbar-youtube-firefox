@@ -3,7 +3,7 @@
 ![Platform](https://img.shields.io/badge/platform-Firefox%20%7C%20Firefox%20for%20Android-blue)
 ![Firefox](https://img.shields.io/badge/Firefox-%3E%3D140-blue)
 ![Firefox for Android](https://img.shields.io/badge/Firefox%20for%20Android-%3E%3D142-blue)
-[![License](https://img.shields.io/badge/license-GPLv3-blue)](LICENSE)
+[![License](https://img.shields.io/badge/license-GPLv3-green)](LICENSE)
 [![Latest release](https://img.shields.io/github/v/release/Evilchuck666/hide-scrollbar-youtube-firefox?label=download&sort=semver)](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/releases/latest)
 [![Build and tests](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/actions/workflows/release.yml)
 
