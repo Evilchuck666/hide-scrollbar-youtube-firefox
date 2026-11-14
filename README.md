@@ -5,7 +5,7 @@
 ![Firefox for Android](https://img.shields.io/badge/Firefox%20for%20Android-%3E%3D142-blue)
 [![License](https://img.shields.io/badge/license-GPLv3-green)](LICENSE)
 [![Latest release](https://img.shields.io/github/v/release/Evilchuck666/hide-scrollbar-youtube-firefox?label=download&sort=semver)](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/releases/latest)
-[![Build and tests](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/actions/workflows/release.yml)
+[![Build and tests](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/actions/workflows/release.yaml/badge.svg?branch=main)](https://github.com/Evilchuck666/hide-scrollbar-youtube-firefox/actions/workflows/release.yaml)
 
 **Watch YouTube without a scrollbar in the way.**
 
@@ -70,7 +70,7 @@ You can also load it by hand from `about:debugging` → **This Firefox** →
 
 ## 📦 Releases
 
-Releases are built by the [`Build extension`](.github/workflows/release.yml)
+Releases are built by the [`Build extension`](.github/workflows/release.yaml)
 workflow. Every push and pull request lints the add-on and builds an unsigned
 package. To publish a release:
 
