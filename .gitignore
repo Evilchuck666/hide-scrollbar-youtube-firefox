@@ -2,9 +2,9 @@
 .DS_Store
 Thumbs.db
 
-# VS Code
+# VS Code: the shared settings, tasks and launch config live in
+# hide-scrollbar-youtube-firefox.code-workspace (tracked); .vscode/ stays local.
 .vscode/
-*.code-workspace
 
 # web-ext
 dist/
