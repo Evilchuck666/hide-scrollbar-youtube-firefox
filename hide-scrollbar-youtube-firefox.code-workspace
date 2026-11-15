@@ -1,4 +1,9 @@
 {
+  // Open the project through this file. Each piece of configuration is defined in one place only:
+  //   - here: the folder and every setting (a workspace file accepts settings of any scope);
+  //   - .vscode/extensions.json, .vscode/tasks.json, .vscode/launch.json: recommendations, tasks and debugging.
+  // Keep "extensions", "tasks" and "launch" out of this file and don't add a .vscode/settings.json,
+  // or VS Code would merge or override the same configuration from two sources.
   "folders": [
     {
       "name": "Hide-Scrollbar-YouTube",
@@ -6,79 +11,20 @@
     }
   ],
   "settings": {
-    "search.exclude": {
-      "dist": true,
-      "web-ext-artifacts": true
-    },
-    "files.watcherExclude": {
-      "**/dist/**": true,
-      "**/web-ext-artifacts/**": true
-    }
-  },
-  "extensions": {
-    "recommendations": [
-      "firefox-devtools.vscode-firefox-debug",
-      "github.vscode-github-actions"
-    ]
-  },
-  "launch": {
-    "version": "0.2.0",
-    "configurations": [
+    // Same conventions as the existing sources: 2-space indentation, LF line endings, one final newline
+    // and no trailing whitespace.
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+
+    // Validation and completion for the add-on manifest.
+    "json.schemas": [
       {
-        // Loads src/ as a temporary add-on in a fresh profile and reloads it whenever a file in src/ changes.
-        // The content script only runs when a /watch page loads: open a video directly or reload its tab.
-        // Without firefoxExecutable the debugger finds Firefox on its own (Developer Edition first). To use another
-        // binary, set "firefox.executable" in your user settings rather than here, so this file stays portable.
-        "name": "Extension: debug in Firefox",
-        "type": "firefox",
-        "request": "launch",
-        "reAttach": true,
-        "addonPath": "${workspaceFolder:Hide-Scrollbar-YouTube}/src",
-        "reloadOnChange": "${workspaceFolder:Hide-Scrollbar-YouTube}/src/**",
-        "url": "https://www.youtube.com/"
-      }
-    ]
-  },
-  // web-ext is pinned to the version in .github/workflows/release.yaml (WEB_EXT), so local lint results match CI.
-  "tasks": {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "Extension: lint",
-        "type": "shell",
-        "command": "npx --yes web-ext@10.7.0 lint --source-dir src",
-        "options": {
-          "cwd": "${workspaceFolder:Hide-Scrollbar-YouTube}"
-        },
-        "group": {
-          "kind": "test",
-          "isDefault": true
-        },
-        "problemMatcher": []
-      },
-      {
-        // Temporary Firefox profile with the add-on installed; web-ext reloads it on every change in src/.
-        "label": "Extension: run in Firefox",
-        "type": "shell",
-        "command": "npx --yes web-ext@10.7.0 run --source-dir src",
-        "options": {
-          "cwd": "${workspaceFolder:Hide-Scrollbar-YouTube}"
-        },
-        "problemMatcher": []
-      },
-      {
-        // Same unsigned package as the CI build job, in dist/ (ignored by git).
-        "label": "Extension: build unsigned package",
-        "type": "shell",
-        "command": "npx --yes web-ext@10.7.0 build --source-dir src --artifacts-dir dist --filename unsigned-hide-scrollbar-youtube.xpi --overwrite-dest",
-        "options": {
-          "cwd": "${workspaceFolder:Hide-Scrollbar-YouTube}"
-        },
-        "group": {
-          "kind": "build",
-          "isDefault": true
-        },
-        "problemMatcher": []
+        "fileMatch": ["src/manifest.json"],
+        "url": "https://json.schemastore.org/webextension.json"
       }
     ]
   }

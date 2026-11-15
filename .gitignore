@@ -2,10 +2,13 @@
 .DS_Store
 Thumbs.db
 
-# VS Code: the shared settings, tasks and launch config live in
-# hide-scrollbar-youtube-firefox.code-workspace (tracked); .vscode/ stays local.
-.vscode/
-
-# web-ext
+# web-ext packages: dist/ (VS Code build task and CI), web-ext-artifacts/ (web-ext's default output)
 dist/
 web-ext-artifacts/
+
+# VS Code: settings live in hide-scrollbar-youtube-firefox.code-workspace. .vscode/ only versions the
+# extension recommendations, tasks and launch configurations; anything else in it stays local.
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json

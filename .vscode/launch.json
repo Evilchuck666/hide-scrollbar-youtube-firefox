@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Loads src/ as a temporary add-on in a fresh Firefox profile and reloads it whenever a file in src/ changes.
+      // The content script only runs when a /watch page loads: open a video directly or reload its tab.
+      // Without "firefoxExecutable" the debugger finds Firefox on its own. To use another binary, set
+      // "firefox.executable" in your user settings rather than here, so this file stays portable.
+      "name": "Extension: debug in Firefox",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "addonPath": "${workspaceFolder}/src",
+      "reloadOnChange": "${workspaceFolder}/src/**",
+      "url": "https://www.youtube.com/"
+    }
+  ]
+}

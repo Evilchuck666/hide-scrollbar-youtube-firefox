@@ -1,0 +1,35 @@
+{
+  // web-ext is pinned to WEB_EXT in .github/workflows/release.yaml so local results match CI: update both together.
+  // Tasks run from the project root, the same directory the workflow commands run from.
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Extension: lint",
+      "type": "shell",
+      "command": "npx --yes web-ext@10.7.0 lint --source-dir src",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      // Temporary Firefox profile with the add-on installed; web-ext reloads it on every change in src/.
+      "label": "Extension: run in Firefox",
+      "type": "shell",
+      "command": "npx --yes web-ext@10.7.0 run --source-dir src",
+      "problemMatcher": []
+    },
+    {
+      // Same unsigned package as the CI build job, written to dist/ (ignored by git).
+      "label": "Extension: build unsigned package",
+      "type": "shell",
+      "command": "npx --yes web-ext@10.7.0 build --source-dir src --artifacts-dir dist --filename unsigned-hide-scrollbar-youtube.xpi --overwrite-dest",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}
